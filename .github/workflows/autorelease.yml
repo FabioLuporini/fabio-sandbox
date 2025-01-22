@@ -17,11 +17,12 @@ jobs:
       - name: Get Current Version Tag
         id: get_version
         run: |
-          # Get the latest tag
-          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-
-          # If no tag exists, default to v0.0.0
-          if [ -z "$latest_tag" ]; then
+          # Check if there are any tags in the repository
+          if git describe --tags $(git rev-list --tags --max-count=1) >/dev/null 2>&1; then
+            # Get the latest tag
+            latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          else
+            # Default to v0.0.0 if no tags exist
             latest_tag="v0.0.0"
           fi
 
