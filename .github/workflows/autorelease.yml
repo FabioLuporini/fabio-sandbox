@@ -1,9 +1,9 @@
-name: Auto Release on main Merge
+name: Auto Release on Master Merge
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   create-release:
@@ -44,15 +44,10 @@ jobs:
           git tag "$new_tag"
           git push origin "$new_tag"
 
-      - name: Authenticate with GitHub CLI
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "$new_tag" \
             --title "$new_tag" \
-            --notes "Automated release for changes merged into main."
+            --notes "Automated release for changes merged into master."
