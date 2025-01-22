@@ -1,9 +1,9 @@
-name: Auto Release on Master Merge
+name: Auto Release on main Merge
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   create-release:
@@ -50,4 +50,4 @@ jobs:
         run: |
           gh release create "$new_tag" \
             --title "$new_tag" \
-            --notes "Automated release for changes merged into master."
+            --notes "Automated release for changes merged into main."
